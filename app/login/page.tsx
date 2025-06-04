@@ -1,4 +1,7 @@
 import LoginForm from '../ui/login-form';
+// /app/page.js
+import { redirect } from 'next/navigation';
+
 
 export default function LoginPage() {
   return (

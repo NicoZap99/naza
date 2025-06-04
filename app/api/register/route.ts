@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
-
-type User = { name: string; email: string; password: string };
-let users: User[] = []; // ⚠️ En memoria (se reinicia en cada request si estás en dev)
+import { users, User } from '../users';
 
 export async function POST(request: Request) {
   const { name, email, password } = await request.json();

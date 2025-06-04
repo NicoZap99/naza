@@ -5,6 +5,7 @@ import { useState, FormEvent } from 'react';
 import { AtSymbolIcon, KeyIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
 import { Button } from './button';
+import Link from 'next/link';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -85,11 +86,23 @@ export default function LoginForm() {
         <KeyIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-green-400" />
       </div>
 
-      <Button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-white">
-        Entrar <ArrowRightIcon className="ml-auto h-5 w-5 text-white" />
-      </Button>
+      {error && <div className="text-red-400 text-center">{error}</div>}
 
-      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+      <div className="flex flex-col items-center gap-2">
+        <button
+          type="submit"
+          className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded flex items-center justify-center gap-2"
+        >
+          <ArrowRightIcon className="h-5 w-5" />
+          Ingresar
+        </button>
+        <Link
+          href="/register"
+          className="w-full text-center bg-green-900 hover:bg-green-800 text-green-300 font-semibold py-2 px-4 rounded transition"
+        >
+          ¿No tienes cuenta? Regístrate
+        </Link>
+      </div>
     </form>
   );
 }
