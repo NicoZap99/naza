@@ -138,7 +138,7 @@ export default function DashboardPage() {
                 <option key={c.nombre} value={c.nombre}>{c.nombre}</option>
               ))}
             </select>
-            <button type="submit" className="bg-green-700 text-white rounded p-2 mt-2 hover:bg-green-800">
+            <button type="submit" className="bg-green-700 text-white rounded px-4 py-2 shadow hover:bg-green-800 active:scale-95 transition">
               Agregar pedido
             </button>
           </form>
@@ -191,21 +191,23 @@ export default function DashboardPage() {
       </div>
 
       {/* Tarjetas resumen */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-        <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center hover:scale-105 transition">
-          <UserIcon className="h-10 w-10 text-green-700 mb-2" />
-          <h3 className="text-lg font-semibold mb-1 text-green-700">Cadetes activos</h3>
-          <p className="text-3xl font-bold text-black">{cadetesActivos}</p>
-        </div>
-        <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center hover:scale-105 transition">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 items-start">
+        <div className="bg-white rounded-2xl shadow-xl p-6 flex flex-col items-center transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
           <TruckIcon className="h-10 w-10 text-green-700 mb-2" />
           <h3 className="text-lg font-semibold mb-1 text-green-700">Pedidos en curso</h3>
           <p className="text-3xl font-bold text-black">{pedidosEnCurso}</p>
         </div>
-        <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center hover:scale-105 transition">
+        <div className="bg-white rounded-2xl shadow-xl p-6 flex flex-col items-center transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
           <PhoneIcon className="h-10 w-10 text-green-700 mb-2" />
           <h3 className="text-lg font-semibold mb-1 text-green-700">Operadores activos</h3>
           <p className="text-3xl font-bold text-black">{operadoresActivos}</p>
+        </div>
+        <div className="flex flex-col items-end">
+          <div className="flex flex-col items-center justify-center bg-white rounded-full shadow-lg w-24 h-24 border-2 border-green-300">
+            <UserIcon className="h-7 w-7 text-green-700 mb-1" />
+            <span className="text-xs text-green-700 font-semibold">Activos</span>
+            <span className="text-xl font-bold text-black">{cadetesActivos}</span>
+          </div>
         </div>
       </div>
 
@@ -214,7 +216,7 @@ export default function DashboardPage() {
         {/* Columna principal: Mapa y formularios */}
         <div className="md:col-span-2 flex flex-col gap-8">
           <div className="bg-white rounded-2xl shadow-lg p-6">
-            <h2 className="text-xl font-bold text-green-700 mb-4 flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-green-400 border-b-2 border-green-200 pb-2 mb-4 flex items-center gap-2">
               <MapIcon className="h-6 w-6" /> Mapa de cadetes y pedidos
             </h2>
             <div className="w-full h-[340px] rounded-lg overflow-hidden">
@@ -268,6 +270,9 @@ export default function DashboardPage() {
           document.body
         )
       }
-    </div>
-  );
-}
+      </div>
+    );
+  }
+
+
+

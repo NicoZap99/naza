@@ -1,3 +1,4 @@
+/* Ensure this file is processed by PostCSS with Tailwind CSS plugin for @tailwind directives to work */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -19,5 +20,13 @@ input[type='number']::-webkit-outer-spin-button {
   margin: 0;
   
   
+}
+::-webkit-scrollbar {
+  width: 8px;
+  background: #e5e7eb;
+}
+::-webkit-scrollbar-thumb {
+  background: #22c55e;
+  border-radius: 4px;
 }
 
