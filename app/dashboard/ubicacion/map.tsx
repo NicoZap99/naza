@@ -2,7 +2,7 @@
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
-import { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import 'leaflet/dist/leaflet.css';
 
 type Cadete = {
@@ -27,25 +27,22 @@ type MapProps = {
 };
 
 export default function Map({ position, cadetes = [], pedidos = [] }: MapProps) {
-  // Fix para íconos rotos de Leaflet (solo en cliente)
-  useEffect(() => {
-    (L.Icon.Default as any).mergeOptions({
-      iconRetinaUrl: '/leaflet/marker-icon-2x.png',
-      iconUrl: '/leaflet/marker-icon.png',
-      shadowUrl: '/leaflet/marker-shadow.png',
-    });
-  }, []);
+  // Icono personalizado para cadetes activos
+  const cadeteIcon = useMemo(() => L.icon({
+    iconUrl: '/icono-cadetes.png',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+    popupAnchor: [0, -40],
+    shadowUrl: undefined,
+  }), []);
 
-  // Ícono por defecto para cadetes activos
-  const defaultIcon = useMemo(() => {
-    return new L.Icon.Default();
-  }, []);
-
-  // Ícono personalizado para cadetes inactivos
+  // Icono personalizado para cadetes inactivos (opcional)
   const cadeteInactivoIcon = useMemo(() => L.icon({
-    iconUrl: '/inactivo-icon.png',
-    iconSize: [30, 40],
-    iconAnchor: [15, 40],
+    iconUrl: '/icono-cadetes-inactivo.png', // crea este icono si quieres
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+    popupAnchor: [0, -40],
+    shadowUrl: undefined,
   }), []);
 
   return (
@@ -56,19 +53,27 @@ export default function Map({ position, cadetes = [], pedidos = [] }: MapProps) 
       />
 
       {/* Marcadores de cadetes */}
-      {cadetes.map((cadete) => (
-        <Marker
-          key={cadete.nombre}
-          position={cadete.coords}
-          icon={cadete.activo ? defaultIcon : cadeteInactivoIcon}
-        >
-          <Popup>
-            <strong>{cadete.nombre}</strong>
-            <br />
-            Estado: {cadete.activo ? 'Activo' : 'Inactivo'}
-          </Popup>
-        </Marker>
-      ))}
+      {cadetes.map((cadete, idx) => {
+        const offset = 0.0002 * idx;
+        const coords = [
+          cadete.coords[0] + offset,
+          cadete.coords[1] + offset,
+        ] as [number, number];
+
+        return (
+          <Marker
+            key={cadete.nombre}
+            position={coords}
+            icon={cadete.activo ? cadeteIcon : cadeteInactivoIcon}
+          >
+            <Popup>
+              <strong>{cadete.nombre}</strong>
+              <br />
+              Estado: {cadete.activo ? 'Activo' : 'Inactivo'}
+            </Popup>
+          </Marker>
+        );
+      })}
 
       {/* Marcadores de pedidos */}
       {pedidos.map((pedido) => (
